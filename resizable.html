@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ResizableDiv</title>
+    <link href="./resizable.css" type="text/css" rel="stylesheet">
+    <script src="./resizable.js"></script>
+  </head>
+  <body>
+    <div id="parentWrapper">
+      <div id="resizable">
+        <div class="task">
+          <div class="taskName">Task 1</div>
+          <div class="taskDelete" onclick="removeTask(this)">X</div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <input id="taskName" type="text" placeholder="Task name">
+    <br>
+    <input type="button" value="Generate Task" onclick="generateTask()">
+  </body>
+</html>
