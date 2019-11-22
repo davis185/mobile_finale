@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+		<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+		
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		
+		<script type="text/javascript" src="cordova.js"></script>
+		<!-- <script type="text/javascript" src="js/index.js"></script> -->
+		<script type="text/javascript">
+			document.addEventListener('deviceready', onDeviceReady, false);
+			
+			function generateTask(){
+				task_name = document.querySelector("#taskName").value;
+				resizable = document.querySelector("#resizable");
+				resizable.innerHTML = resizable.innerHTML +
+				"<div class='task'>" +
+				"<div class='taskName'>" + task_name + "</div>" +
+				"<div class='taskDelete' onclick='removeTask(this)'>X</div>" +
+				"</div>";
+			}
+
+			function removeTask(x){
+			  x.innerHTML = "Y";
+			  resizable = document.querySelector("#resizable");
+			  tasks = document.querySelectorAll(".taskDelete");
+			  tasksName = document.querySelectorAll(".taskName");
+			  resizable.innerHTML = "";
+			  for(var i = 0; i < tasks.length; i++){
+				if(tasks[i].innerHTML != "Y"){
+					resizable.innerHTML = resizable.innerHTML +
+					"<div class='task'>" +
+					"<div class='taskName'>" + tasksName[i].innerHTML + "</div>" +
+					"<div class='taskDelete' onclick='removeTask(this)'>X</div>" +
+					"</div>";
+				}
+			  }
+			}
+			
+			function onDeviceReady(){
+				var size =0;
+				window.requestFileSystem(LocalFileSystem.PERSISTENT, size, onFSsuccess, onFSerror);
+				
+			}
+
+			function onFSsuccess(FS){
+			   myRoot=FS.root;
+			   myRoot.getFile('sample.txt', {create: true, exclusive:false}, function(fileEntry) {setUP(fileEntry, null, true);}, onCreateErr);
+			   alert ("Success for FS"); 
+			}
+
+			//function getItReady(file)
+			//{
+			//   writeFile(file, null);
+			//}
+
+			function readIT() {
+			//notice the ugly code for the file method. It can be beautified
+			   myFile.file(function (file) {
+				  var reader = new FileReader();
+				  reader.onloadend = function() {
+					  document.getElementById("resizable").innerHTML = this.result;
+				  };
+				  reader.readAsText(file);
+				}, onReadErr);
+			}
+
+			function setUP(fileEntry, x, isAppend){
+				//setUP the file pointer for later use
+				myFile=fileEntry;
+				  
+			}
+
+			function onFSerror(err){
+				alert ("FS Error " + err);
+			}
+
+			function onReadErr (err){
+			   alert ("Read Error " + err);
+			}
+
+			function onWriteErr (err){
+			   alert ("Write Error " + err);
+			}
+
+			function onCreateErr (err){
+			   alert ("Create Error " + err);
+			}
+
+			function writeIT() {
+			  myFile.createWriter(onGetWriter, onWriteErr);
+			}
+
+			function appendIT() {
+			  myFile.createWriter(onGetAppend, onWriteErr);
+			}
+
+			function onGetWriter(myWriter) {
+			   str = document.getElementById("resizable").innerHTML;
+			   myWriter.write(str);
+			}
+
+			function onGetAppend(myWriter) {
+			   str = document.getElementById("resizable").innerHTML;
+			   myWriter.seek(myWriter.length);
+			   myWriter.write(str);
+			}
+			
+		</script>
+		
+		<title>Hello World</title>
+		
+	</head>
+
+	<body onload = "readIT()">
+	
+		<div id="parentWrapper">
+		  <div id="resizable">
+			<div class="task">
+			
+			</div>
+		  </div>
+		</div>
+		
+		<br>
+		
+		<input id="taskName" type="text" placeholder="Task name">
+		
+		<br>
+		
+		<input type="button" value="Generate Task" onclick="generateTask()">
+		
+		<br>
+		
+		<button type="button" onclick="readIT()">Read File</button>
+		<button type="button" onclick="writeIT()">Write</button>
+		<button type="button" onclick="appendIT()">Append</button>
+		
+		<br>
+		
+		<div id = "filedata"></div>
+	</body>
+
+</html>
