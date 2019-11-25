@@ -1,0 +1,65 @@
+#parentWrapper{
+  height: 500px;
+  width: 95vw;
+  border-style: dotted;
+  border-width: 2px;
+  border-color: black;
+}
+
+#resizable{
+  width: 95vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: grey;
+}
+
+.task{
+  width: 95vw;
+  height: 30px;
+  border-style: solid;
+  border-color: black;
+  border-top: 1px;
+  border-right: none;
+  border-left: none;
+  display: flex;
+  align-items: center;
+}
+
+.taskName{
+  width: 93%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.taskDelete{
+  width: 7%;
+  height: 100%;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bar
+{
+	border-style: solid;
+	border-width: 1px;
+	width: 95vw;
+	
+}
+
+.label
+{
+	border-style: solid;
+	border-width: 1px;
+	width: 95vw;
+	
+}
+
+.date
+{
+	width:115px;
+}
