@@ -111,7 +111,9 @@
 			   myWriter.seek(myWriter.length);
 			   myWriter.write(str);
 			}
-			
+			function hideFunction(){
+			document.getElementById("splash").innerHTML = "";
+			}
 		</script>
 		
 		<title>Hello World</title>
@@ -119,6 +121,10 @@
 	</head>
 
 	<body onload = "readIT()">
+	
+	<div class="splash">
+		<p id="splash"><img src="splash_place.png" onclick="hideFunction()"></p>
+	</div>
 	
 		<div id="parentWrapper">
 		  <div id="resizable">
