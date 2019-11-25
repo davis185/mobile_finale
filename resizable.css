@@ -43,3 +43,9 @@
   align-items: center;
   justify-content: center;
 }
+.splash{
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	
+}
