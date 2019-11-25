@@ -9,15 +9,12 @@
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
 		<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
 		
-		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="index.css" />
 		
 		<script type="text/javascript" src="cordova.js"></script>
 		<!-- <script type="text/javascript" src="js/index.js"></script> -->
 		<script type="text/javascript">
-		
-			
 			document.addEventListener('deviceready', onDeviceReady, false);
-			
 			
 			function generateTask(){
 				task_name = document.querySelector("#taskName").value;
@@ -114,40 +111,22 @@
 			   myWriter.seek(myWriter.length);
 			   myWriter.write(str);
 			}
-			
-			function addOptPriority()
-			{
-			   var option=document.getElementById("priority").selectedIndex;
-			   alert ("option is: "+ option);
+			function hideFunction(){
+			document.getElementById("splash").innerHTML = "";
 			}
-			
-			function addOptCategory()
-			{
-			   var option=document.getElementById("category").selectedIndex;
-			   alert ("option is: "+ option);
-			}
-			
-			function addDate()
-			{
-			   var Due=document.getElementById("dueDate").value;
-			   alert ("option is: "+ Due);
-			}
-			
-			function changeIt()
-			{
-			  str="<div id='ex2' style='color:Blue'>";
-			  str+="I'm Blue now<div>";
-			  document.getElementById("ex2").outerHTML=str;
-			}
-			
 		</script>
 		
 		<title>Hello World</title>
 		
 	</head>
 
-	<body>
+	<body onload = "readIT()">
 	
+	<div class="splash">
+		<p id="splash"><img src="splash_place.png" onclick="hideFunction()"></p>
+	</div>
+	
+	<div class="layer_2">
 		<div id="parentWrapper">
 		  <div id="resizable">
 			<div class="task">
@@ -158,34 +137,9 @@
 		
 		<br>
 		
-		
+		<input id="taskName" type="text" placeholder="Task name">
 		
 		<br>
-		
-		<div class = "label">
-			<p> &nbsp &nbsp &nbsp Task &nbsp &nbsp &nbsp Calander &nbsp &nbsp &nbsp Priority &nbsp &nbsp &nbsp Category</p>
-		</div>
-		
-		<div class = "bar">
-		
-			<input id="taskName" type="text" placeholder="Task name">
-			
-			<select id='priority'>
-				<option value='Opt1' selected>Opt1</option>
-				<option value='Opt2'>Opt2</option> 
-				<option value='Opt3'>Opt3 </option>
-			</select>
-			
-			<select id='category'>
-				<option value='Opt1' selected>Opt1</option>
-				<option value='Opt2'>Opt2</option> 
-				<option value='Opt3'>Opt3 </option>
-			</select>
-			
-			<input type='date' id='dueDate' min="2019-10-01" max="2020-12-31" class = "date">
-			<img src="img/calendar-black.png" onclick="addDate()">
-			
-		</div>
 		
 		<input type="button" value="Generate Task" onclick="generateTask()">
 		
@@ -198,6 +152,7 @@
 		<br>
 		
 		<div id = "filedata"></div>
+		</div>
 	</body>
 
 </html>
