@@ -15,6 +15,22 @@
   background-color: grey;
 }
 
+
+
+/* TASK HEADER*/
+.taskHeader{
+  width: 95vw;
+  height: 30px;
+  border-style: solid;
+  border-color: black;
+  border-top: 1px;
+  border-right: none;
+  border-left: none;
+  display: flex;
+  align-items: center;
+}
+
+/* ROW*/
 .task{
   width: 95vw;
   height: 30px;
@@ -27,22 +43,61 @@
   align-items: center;
 }
 
-.taskName{
-  width: 93%;
+
+
+
+
+
+
+/* COULMNS*/
+.checkBox{
+  width: auto;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 1%;
 }
 
-.taskDelete{
-  width: 7%;
+.taskName{
+  width: auto;
   height: 100%;
-  background-color: red;
+  display: flex;
+  align-items: center;
+  margin-left: 2%;
+}
+
+.taskDate{
+  width: auto;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 2%;
 }
+
+.taskPrior{
+  width: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2%;
+}
+
+.taskCategory{
+  width: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2%;
+}
+
+
+
+
+
 .bar
 {
 	border-style: solid;
@@ -56,10 +111,16 @@
 	border-style: solid;
 	border-width: 1px;
 	width: 95vw;
+	padding:0px;
 	
 }
 
 .date
 {
 	width:115px;
+}
+
+.date2
+{
+	width:110px;
 }
