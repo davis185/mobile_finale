@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+		<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+		
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		
+		<script type="text/javascript" src="cordova.js"></script>
+		<!-- <script type="text/javascript" src="js/index.js"></script> -->
+		<script type="text/javascript">
+		
+			
+			document.addEventListener('deviceready', onDeviceReady, false);
+			
+			
+			function generateTask(){
+				task_name = document.querySelector("#taskName").value;
+				resizable = document.querySelector("#resizable");
+				resizable.innerHTML = resizable.innerHTML +
+				"<div class='task'>" +
+				"<div class='taskName'>" + task_name + "</div>" +
+				"<div class='taskDelete' onclick='removeTask(this)'>X</div>" +
+				"</div>";
+			}
+
+			function removeTask(x){
+			  x.innerHTML = "Y";
+			  resizable = document.querySelector("#resizable");
+			  tasks = document.querySelectorAll(".taskDelete");
+			  tasksName = document.querySelectorAll(".taskName");
+			  resizable.innerHTML = "";
+			  for(var i = 0; i < tasks.length; i++){
+				if(tasks[i].innerHTML != "Y"){
+					resizable.innerHTML = resizable.innerHTML +
+					"<div class='task'>" +
+					"<div class='taskName'>" + tasksName[i].innerHTML + "</div>" +
+					"<div class='taskDelete' onclick='removeTask(this)'>X</div>" +
+					"</div>";
+				}
+			  }
+			}
+			
+			function onDeviceReady(){
+				var size =0;
+				window.requestFileSystem(LocalFileSystem.PERSISTENT, size, onFSsuccess, onFSerror);
+				
+			}
+
+			function onFSsuccess(FS){
+			   myRoot=FS.root;
+			   myRoot.getFile('sample.txt', {create: true, exclusive:false}, function(fileEntry) {setUP(fileEntry, null, true);}, onCreateErr);
+			   alert ("Success for FS"); 
+			}
+
+			//function getItReady(file)
+			//{
+			//   writeFile(file, null);
+			//}
+
+			function readIT() {
+			//notice the ugly code for the file method. It can be beautified
+			   myFile.file(function (file) {
+				  var reader = new FileReader();
+				  reader.onloadend = function() {
+					  document.getElementById("resizable").innerHTML = this.result;
+				  };
+				  reader.readAsText(file);
+				}, onReadErr);
+			}
+
+			function setUP(fileEntry, x, isAppend){
+				//setUP the file pointer for later use
+				myFile=fileEntry;
+				  
+			}
+
+			function onFSerror(err){
+				alert ("FS Error " + err);
+			}
+
+			function onReadErr (err){
+			   alert ("Read Error " + err);
+			}
+
+			function onWriteErr (err){
+			   alert ("Write Error " + err);
+			}
+
+			function onCreateErr (err){
+			   alert ("Create Error " + err);
+			}
+
+			function writeIT() {
+			  myFile.createWriter(onGetWriter, onWriteErr);
+			}
+
+			function appendIT() {
+			  myFile.createWriter(onGetAppend, onWriteErr);
+			}
+
+			function onGetWriter(myWriter) {
+			   str = document.getElementById("resizable").innerHTML;
+			   myWriter.write(str);
+			}
+
+			function onGetAppend(myWriter) {
+			   str = document.getElementById("resizable").innerHTML;
+			   myWriter.seek(myWriter.length);
+			   myWriter.write(str);
+			}
+			
+			function addOptPriority()
+			{
+			   var option=document.getElementById("priority").selectedIndex;
+			   alert ("option is: "+ option);
+			}
+			
+			function addOptCategory()
+			{
+			   var option=document.getElementById("category").selectedIndex;
+			   alert ("option is: "+ option);
+			}
+			
+			function addDate()
+			{
+			   var Due=document.getElementById("dueDate").value;
+			   alert ("option is: "+ Due);
+			}
+			
+			function changeIt()
+			{
+			  str="<div id='ex2' style='color:Blue'>";
+			  str+="I'm Blue now<div>";
+			  document.getElementById("ex2").outerHTML=str;
+			}
+			
+		</script>
+		
+		<title>Hello World</title>
+		<style> 
+.animate {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 4s;
+  
+}
+
+
+
+
+@keyframes example {
+	
+  0%   {background-color:red; left:0px; top:0px;}
+  25%  {background-color:yellow; left:200px; top:0px;}
+  50%  {background-color:blue; left:200px; top:200px;}
+  75%  {background-color:green; left:0px; top:200px;}
+  100% {background-color:red; left:0px; top:0px;}
+}
+</style>
+		
+	</head>
+
+	<body>
+	<div class="layer1" onclick="this.style.display='none'">
+<div class= "animate"onclick="this.style.display='none'">Davis Hanberry, Tanung, Lucas Racer</div>
+<div class="picture"onclick="this.style.display='none'"> <img src="deadline.png" alt="Italian Trulli"></div>
+</div>
+<div class ="layer2">
+		<div id="parentWrapper">
+		  <div id="resizable">
+		  
+			<div class='taskHeader'>
+				<div class='checkBox'> Done? </div>
+				<div class='taskName'> Task </div>
+				<div class='taskDate'> Due Date </div>
+				<div class='taskPrior'> Priority </div>
+				<div class='taskCategory'> Category </div>
+			</div>	
+				
+			<div class="task">
+					
+				<div class='checkBox'> <input type = "checkbox"> </div>
+				<div class='taskName'> HI </div>
+				<div class='taskDate'> <input type='date' id='dueDate' min="2019-10-01" max="2020-12-31" class = "date2"> </div>
+				<div class='taskPrior' id='ex2' style='color:Tomato' onclick='changeIt()'>H</div>
+				<div class='taskCategory'> Personal </div>
+				
+			</div>
+		  </div>
+		</div>
+		
+		<br>
+		
+		
+		
+		<br>
+		
+		<div class = "label">
+			<p> &nbsp &nbsp &nbsp Task &nbsp &nbsp &nbsp Calander &nbsp &nbsp &nbsp Priority &nbsp &nbsp &nbsp Category</p>
+		</div>
+		
+		<div class = "bar">
+		
+			<input id="taskName" type="text" placeholder="Task name">
+			
+			<select id='priority'>
+				<option value='Opt1' selected>Opt1</option>
+				<option value='Opt2'>Opt2</option> 
+				<option value='Opt3'>Opt3 </option>
+			</select>
+			
+			<select id='category'>
+				<option value='Opt1' selected>Opt1</option>
+				<option value='Opt2'>Opt2</option> 
+				<option value='Opt3'>Opt3 </option>
+			</select>
+			
+			<input type='date' id='dueDate' min="2019-10-01" max="2020-12-31" class = "date">
+			<img src="img/calendar-black.png" onclick="addDate()">
+			
+		</div>
+		
+		<input type="button" value="Generate Task" onclick="generateTask()">
+		
+		<br>
+		
+		<button type="button" onclick="readIT()">Read File</button>
+		<button type="button" onclick="writeIT()">Write</button>
+		<button type="button" onclick="appendIT()">Append</button>
+		
+		<br>
+		
+		<div id = "filedata"></div>
+		</div>
+	</body>
+<!--<div>Icons made by <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>-->
+<!--<w3 schools> (<12/2/2019>) <css animations> (<1.0>) [<type>]. https://www.w3schools.com/css/css3_animations.asp. -->
+</html>
